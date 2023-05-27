@@ -1,0 +1,17 @@
+<div [ngClass]="'chat'">
+    <div [ngClass]="'chat-messages'">
+        <div id="messages" style="display: flex;" *ngFor="let message of listMessages">
+            <p [ngClass]="[message.me ? 'chat-message chat-message-in' : 'chat-message chat-message-out']">
+                {{ message.me ? 'Eu' : message.name }}: {{ message.content }}
+            </p>
+        </div>
+        <div *ngIf="emptyMessages">Sem mensagens no momento!</div>
+    </div>
+    
+    <div [ngClass]="'chat-send-message'">
+        <form [formGroup]="chatForm" (ngSubmit)="onSubmit()">
+            <input id="message" placeholder="Digite sua mensagem" type="text" formControlName="message">
+            <button class="button" type="submit">Enviar</button>
+        </form>
+    </div>
+</div>
