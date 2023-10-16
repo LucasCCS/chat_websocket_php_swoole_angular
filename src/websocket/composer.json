@@ -4,5 +4,8 @@
         "psr-4": {
             "App\\": "src/"
         }
+    },
+    "require-dev": {
+        "swoole/ide-helper": "~5.0.0"
     }
 }
