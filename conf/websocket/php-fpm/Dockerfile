@@ -1,8 +1,7 @@
-FROM phpdockerio/php:8.1-fpm
+FROM phpswoole/swoole:4.8-alpine
+
+RUN curl -sS https://getcomposer.org/installer | php -- \
+--install-dir=/usr/bin --filename=composer
+
 WORKDIR "/src"
 
-RUN apt-get update; \
-    apt-get -y --no-install-recommends install \
-        php8.1-swoole; \
-    apt-get clean; \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
