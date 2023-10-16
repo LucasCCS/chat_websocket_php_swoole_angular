@@ -26,12 +26,17 @@ class WebSocketServer {
 
         $this->server->on('message', function($server, $frame) {
             
+            $connections = [];
             $data = json_decode($frame->data);
 
-            $connections = [];
+            if (empty($data->channelId)) {
+                return;
+            }
 
-            if (!empty($this->channels[$data->toChannel])) {
-                $connections = $this->channels[$data->toChannel];
+            foreach ($data->channelId as $channelId) {
+                if (!empty($this->channels[$channelId])) {
+                    $connections = array_merge($connections, $this->channels[$channelId]);
+                }
             }
 
             foreach ($connections as $connection) {
@@ -44,9 +49,14 @@ class WebSocketServer {
            
         });
 
-        // remover conexao quando houver evento de disconnect
-
-
+        $this->server->on('close', function ($server, $fd) {
+            foreach ($this->channels as $channelId => $connections) {
+                if (in_array($fd, $connections)) {
+                    $key = array_search($fd, $connections);
+                    unset($this->channels[$channelId][$key]);
+                }
+            }
+        });
     }
 
     public function run() {
