@@ -11,7 +11,7 @@ class ChannelManager {
     /**
      * @param mixed $channelId
      * @param mixed $fd
-     * 
+     *
      * @return void
      */
     public function addConnectionToChannel($channelId, $fd): void {
@@ -26,7 +26,7 @@ class ChannelManager {
 
     /**
      * @param mixed $fd
-     * 
+     *
      * @return void
      */
     public function removeConnectionFromChannels($fd): void {
@@ -40,7 +40,7 @@ class ChannelManager {
 
     /**
      * @param mixed $channelIds
-     * 
+     *
      * @return array
      */
     public function getConnectionsInChannels($channelIds): array {
